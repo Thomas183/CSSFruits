@@ -1,0 +1,31 @@
+const routes = {
+    index: "/pages/home",
+    home: "/pages/home",
+    products: "/pages/products"
+}
+const app = document.querySelector("#app")
+const handleLinks = () => {
+    const links = document.querySelectorAll("a");
+    links.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.history.pushState({}, "", e.target.href)
+            router();
+        })
+    })
+}
+
+let router = async () => {
+    console.log("router called")
+    console.log(corePath)
+    switch (corePath){
+        case routes.index:
+        case routes.home:
+            app.innerHTML = await (await fetch("./pages/home.html")).text();
+            break;
+        case routes.products:
+            app.innerHTML = await (await fetch("./pages/products.html")).text();
+    }
+}
+
+handleLinks();
